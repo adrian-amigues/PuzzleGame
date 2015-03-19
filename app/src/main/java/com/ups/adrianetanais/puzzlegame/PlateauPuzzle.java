@@ -22,6 +22,8 @@ public class PlateauPuzzle extends View {
 
     private int mX;
     private int mY;
+    private int decalageX;
+    private int decalageY;
 
     public PlateauPuzzle(Context context) {
         super(context);
@@ -79,7 +81,15 @@ public class PlateauPuzzle extends View {
         int action = MotionEventCompat.getActionMasked(event);
         switch(action) {
             case (MotionEvent.ACTION_DOWN) :
-                imageSelectionnee = recupererImageALaPosition((int)event.getX(), (int)event.getY());
+                mX = (int)event.getX();
+                mY = (int)event.getY();
+                imageSelectionnee = recupererImageALaPosition(mX, mY);
+                if (imageSelectionnee == null)
+                    return false;
+
+                decalageX = mX - imageSelectionnee.getX();
+                decalageY = mY - imageSelectionnee.getY();
+
                 /* On place l'élément en tête de liste pour qu'ils soient déssinés dans l'ordre
                     par la suite
                  */
@@ -90,8 +100,8 @@ public class PlateauPuzzle extends View {
                 if (imageSelectionnee != null) {
                     mX = (int)event.getX();
                     mY = (int)event.getY();
-                    imageSelectionnee.setX(mX - imageSelectionnee.getBitmap().getWidth() / 2);
-                    imageSelectionnee.setY(mY - imageSelectionnee.getBitmap().getHeight() / 2);
+                    imageSelectionnee.setX(mX - decalageX);
+                    imageSelectionnee.setY(mY - decalageY);
                     invalidate();
                 }
                 return true;
@@ -99,8 +109,8 @@ public class PlateauPuzzle extends View {
                 if (imageSelectionnee != null) {
                     mX = (int)event.getX();
                     mY = (int)event.getY();
-                    imageSelectionnee.setX(mX - imageSelectionnee.getBitmap().getWidth() / 2);
-                    imageSelectionnee.setY(mY - imageSelectionnee.getBitmap().getHeight() / 2);
+                    imageSelectionnee.setX(mX - decalageX);
+                    imageSelectionnee.setY(mY - decalageY);
                     invalidate();
                     imageSelectionnee = null;
                 }
