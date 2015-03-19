@@ -43,14 +43,10 @@ public class PlateauPuzzle extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (ImagePuzzle image : imageList) {
-            canvas.drawBitmap(image.getBitmap(), image.getX(), image.getY(), null);
-        }
         for (Iterator<ImagePuzzle> iter = ((LinkedList<ImagePuzzle>) imageList).descendingIterator(); iter.hasNext(); ) {
             ImagePuzzle currentImage = iter.next();
             canvas.drawBitmap(currentImage.getBitmap(), currentImage.getX(), currentImage.getY(), null);
         }
-
 
         // Draw the example drawable.
         if (mExampleDrawable != null) {
