@@ -9,9 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         class="com.ups.adrianetanais.puzzlegame.PlateauPuzzle"
-        android:id="@+id/view"
+        android:id="@+id/plateauPuzzle"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="0dp" />
+        android:layout_margin="0dp"/>
 
 </RelativeLayout>
