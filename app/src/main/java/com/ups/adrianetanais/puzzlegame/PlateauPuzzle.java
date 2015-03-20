@@ -27,21 +27,50 @@ public class PlateauPuzzle extends View {
     private int decalageX;
     private int decalageY;
     private int piecesToPlace;
+    private int difficulte;
 
     public PlateauPuzzle(Context context) {
         super(context);
-        ImagePuzzle image1 = new ImagePuzzle(
-                BitmapFactory.decodeResource(getResources(), R.drawable.fishpiece1), 0, 0, 0, 0);
-        image1.setFixed(true);
-        ImagePuzzle image2 = new ImagePuzzle(
-                BitmapFactory.decodeResource(getResources(), R.drawable.fishpiece2)
-                , image1.getBitmap().getWidth() - 100, 0
-                , image1.getX() + image1.getBitmap().getWidth(), 0);
+        difficulte = 1;
+        decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.montagnes1));
+        imageList.get(0).setFixed(true);
 
-        imageList.add(image1);
-        imageList.add(image2);
+
+//        ImagePuzzle image1 = new ImagePuzzle(
+//                BitmapFactory.decodeResource(getResources(), R.drawable.fishpiece1), 0, 0, 0, 0);
+//        image1.setFixed(true);
+//        ImagePuzzle image2 = new ImagePuzzle(
+//                BitmapFactory.decodeResource(getResources(), R.drawable.fishpiece2)
+//                , image1.getBitmap().getWidth() - 100, 0
+//                , image1.getX() + image1.getBitmap().getWidth(), 0);
+//        imageList.add(image1);
+//        imageList.add(image2);
+
         // Hardcoded, à modifier
-        piecesToPlace = 1;
+        piecesToPlace = 8;
+    }
+
+    public void decouperImage(Bitmap sourceImage) {
+        int nbRow;
+        int nbCol;
+        if (difficulte == 1) {
+            nbRow = 3;
+            nbCol = 3;
+        }
+        else {
+            nbRow = 2;
+            nbCol = 2;
+        }
+
+        int width = sourceImage.getWidth();
+        int height = sourceImage.getHeight();
+        Bitmap imagePiece;
+        for (int i=0; i < nbRow; i++) {
+            for (int j=0; j < nbCol; j++) {
+                imagePiece = Bitmap.createBitmap(sourceImage, width/3*j, height/3*i, width/3, height/3);
+                imageList.add(new ImagePuzzle(imagePiece, i*300 + j*100, i*300 + j*100, width/3*j, height/3*i));
+            }
+        }
     }
 
     public PlateauPuzzle(Context context, AttributeSet attrs) {
@@ -118,6 +147,10 @@ public class PlateauPuzzle extends View {
                     imageSelectionnee.setX(mX - decalageX);
                     imageSelectionnee.setY(mY - decalageY);
                     if (imageSelectionnee.isAtTheRightPlace(imageSelectionnee.getX(), imageSelectionnee.getY())) {
+                        /* On place l'image à la fin */
+                        imageList.remove(imageSelectionnee);
+                        imageList.add(imageSelectionnee);
+
                         imageSelectionnee.setPositionToFinal();
                         imageSelectionnee.setFixed(true);
                         piecesToPlace--;
