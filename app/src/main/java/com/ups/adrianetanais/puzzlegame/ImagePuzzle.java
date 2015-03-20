@@ -4,25 +4,22 @@ import android.graphics.Bitmap;
 
 
 public class ImagePuzzle {
+    public static final int ACCEPTANCE_MARGIN = 18;
+
     protected int x;
     protected int y;
     protected Bitmap bitmap;
     protected boolean fixed;
-    protected int xFinal;
-    protected int yFinal;
+    protected int finalX;
+    protected int finalY;
 
-    ImagePuzzle(Bitmap bitmap) {
-        this.bitmap = bitmap;
-        this.x = 0;
-        this.y = 0;
-    }
-    ImagePuzzle(Bitmap bitmap, int x, int y, boolean isFixed, int xFinal, int yFinal) {
+    ImagePuzzle(Bitmap bitmap, int x, int y, int finalX, int finalY) {
         this.bitmap = bitmap;
         this.x = x;
         this.y = y;
-        this.fixed = isFixed;
-        this.xFinal = xFinal;
-        this.yFinal = yFinal;
+        this.finalX = finalX;
+        this.finalY = finalY;
+        this.fixed = false;
     }
 
     public int getY() {
@@ -45,21 +42,45 @@ public class ImagePuzzle {
         return bitmap;
     }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
-
-    public boolean isFixed(){
+    public boolean isFixed() {
         return this.fixed;
     }
-    public void setFixed (boolean bool){
+
+    public void setFixed(boolean bool) {
         this.fixed = bool;
     }
-    public int getYFinal() {
-        return yFinal;
+
+    public boolean isAtTheRightPlace(int x, int y) {
+        return (x > finalX - ACCEPTANCE_MARGIN && x < finalX + ACCEPTANCE_MARGIN
+                && y > finalY - ACCEPTANCE_MARGIN && y < finalY + ACCEPTANCE_MARGIN);
     }
 
-    public int getXFinal() {
-        return xFinal;
+    public void setPositionToFinal() {
+        x = finalX;
+        y = finalY;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
