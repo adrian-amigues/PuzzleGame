@@ -1,21 +1,31 @@
 package com.ups.adrianetanais.puzzlegame;
 
-import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
+import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends ActionBarActivity {
+    public final static String DIFFICULTE = "sdz.chapitreTrois.intent.example.DIFFICULTE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-        PlateauPuzzle plateau = new PlateauPuzzle(this);
-        setContentView(plateau);
+        setContentView(R.layout.activity_main);
+        Button choixFacile = (Button) findViewById(R.id.facile);
+        choixFacile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent secondeActivite = new Intent(MainActivity.this, IntentPuzzle.class);
+                secondeActivite.putExtra(DIFFICULTE, 0);
+                startActivity(secondeActivite);
+            }
+        });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
