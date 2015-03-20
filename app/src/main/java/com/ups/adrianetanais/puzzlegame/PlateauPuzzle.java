@@ -19,6 +19,7 @@ import java.util.List;
 public class PlateauPuzzle extends View {
     public static final int BORDER_SIZE = 2;
 
+    private Bitmap puzzleBitmap;
     private List<ImagePuzzle> imageList = new LinkedList<>();
     private ImagePuzzle imageSelectionnee = null;
 
@@ -32,6 +33,9 @@ public class PlateauPuzzle extends View {
     public PlateauPuzzle(Context context) {
         super(context);
         difficulte = 1;
+        puzzleBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.montagnes1);
+//        resizePuzzleBitmap();
+
         decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.montagnes1));
         imageList.get(0).setFixed(true);
 
@@ -48,6 +52,12 @@ public class PlateauPuzzle extends View {
 
         // Hardcoded, à modifier
         piecesToPlace = 8;
+    }
+
+    public void resizePuzzleBitmap() {
+        int width = puzzleBitmap.getWidth();
+        int height = puzzleBitmap.getHeight();
+        puzzleBitmap = Bitmap.createScaledBitmap(puzzleBitmap, getWidth(), puzzleBitmap.getHeight(), false);
     }
 
     public void decouperImage(Bitmap sourceImage) {
