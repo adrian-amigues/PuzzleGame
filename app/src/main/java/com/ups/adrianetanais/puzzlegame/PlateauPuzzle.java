@@ -105,7 +105,7 @@ public class PlateauPuzzle extends View {
                     imageSelectionnee.setX(mX - decalageX);
                     imageSelectionnee.setY(mY - decalageY);
                     invalidate();
-                    imageSelectionnee.setFixed(isGoodPlace(imageSelectionnee));
+                   // imageSelectionnee.setFixed(isGoodPlace(imageSelectionnee));
                 }
                 return true;
             case (MotionEvent.ACTION_UP) :
@@ -125,8 +125,8 @@ public class PlateauPuzzle extends View {
     }
 
     public boolean isGoodPlace(ImagePuzzle image){
-        if (image.getX() > image.getXFinal() - 2 && image.getX() < image.getXFinal() + 2)
-            if (image.getY() > image.getYFinal() - 2 && image.getY() < image.getYFinal() + 2){
+        if (image.getX() > image.getXFinal() - 10 && image.getX() < image.getXFinal() + 10)
+            if (image.getY() > image.getYFinal() - 10 && image.getY() < image.getYFinal() + 10){
                 image.setX(image.getXFinal());
                 image.setY(image.getYFinal());
                 return true;
