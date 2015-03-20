@@ -1,6 +1,7 @@
 package com.ups.adrianetanais.puzzlegame;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,6 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PlateauPuzzle extends View {
+    public static final int BORDER_SIZE = 2;
+
     private List<ImagePuzzle> imageList = new LinkedList<>();
     private ImagePuzzle imageSelectionnee = null;
 
@@ -53,11 +56,22 @@ public class PlateauPuzzle extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         for (Iterator<ImagePuzzle> iter = ((LinkedList<ImagePuzzle>) imageList).descendingIterator(); iter.hasNext(); ) {
-            ImagePuzzle currentImage = iter.next();
-            canvas.drawBitmap(currentImage.getBitmap(), currentImage.getX(), currentImage.getY(), null);
+            drawImagePuzzle(canvas, iter.next());
         }
         if (puzzleIsFinished())
             drawFinalRectangle(canvas);
+    }
+
+    public void drawImagePuzzle(Canvas canvas, ImagePuzzle image) {
+        Bitmap bitmap = image.getBitmap();
+        Bitmap bitmapWithBorder = Bitmap.createBitmap(
+                bitmap.getWidth() + BORDER_SIZE * 2, bitmap.getHeight() + BORDER_SIZE * 2
+                , bitmap.getConfig());
+        Canvas backgroundCanvas = new Canvas(bitmapWithBorder);
+        backgroundCanvas.drawColor(Color.GRAY);
+        backgroundCanvas.drawBitmap(image.getBitmap(), BORDER_SIZE, BORDER_SIZE, null);
+
+        canvas.drawBitmap(bitmapWithBorder, image.getX(), image.getY(), null);
     }
 
     public void drawFinalRectangle(Canvas canvas) {
