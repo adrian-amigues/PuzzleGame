@@ -54,7 +54,7 @@ public class PlateauPuzzle extends View {
         if (mExampleDrawable != null) {
             mExampleDrawable.draw(canvas);
         }
-        drawFinallyRectangle(canvas);
+       // drawFinallyRectangle(canvas);
     }
 
 
