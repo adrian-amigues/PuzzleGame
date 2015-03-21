@@ -15,6 +15,7 @@ import android.view.View;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class PlateauPuzzle extends View {
     public static final int BORDER_SIZE = 2;
@@ -57,6 +58,8 @@ public class PlateauPuzzle extends View {
 
             decouperImage(puzzleBitmap);
             ImagePuzzle fixedPiece = imageList.get(0);
+            fixedPiece.setX(0);
+            fixedPiece.setY(0);
             fixedPiece.setFixed(true);
             putImageOnTheBack(fixedPiece);
         }
@@ -92,13 +95,23 @@ public class PlateauPuzzle extends View {
             nbCol = 2;
         }
 
-        int width = sourceImage.getWidth();
-        int height = sourceImage.getHeight();
+        Random random = new Random();
+        boolean putPiecesRandomly = false; /* pourrait être une option ?.. */
+        int randomX;
+        int randomY;
+        int imageWidth = sourceImage.getWidth();
+        int imageHeight = sourceImage.getHeight();
         Bitmap imagePiece;
         for (int i=0; i < nbRow; i++) {
             for (int j=0; j < nbCol; j++) {
-                imagePiece = Bitmap.createBitmap(sourceImage, width/3*j, height/3*i, width/3, height/3);
-                imageList.add(new ImagePuzzle(imagePiece, i*300 + j*100, i*300 + j*100, width/3*j, height/3*i));
+                imagePiece = Bitmap.createBitmap(sourceImage, imageWidth/nbCol*j, imageHeight/nbRow*i, imageWidth/nbCol, imageHeight/nbRow);
+                if (putPiecesRandomly) {
+                    randomX = random.nextInt(getWidth() - imageWidth / nbCol);
+                    randomY = random.nextInt(getHeight() - imageHeight / nbRow);
+                    imageList.add(new ImagePuzzle(imagePiece, randomX, randomY, imageWidth / nbCol * j, imageHeight / nbRow * i));
+                } else {
+                    imageList.add(new ImagePuzzle(imagePiece, i*200 + j*50, i*200 + j*50, imageWidth / nbCol * j, imageHeight / nbRow * i));
+                }
             }
         }
     }
