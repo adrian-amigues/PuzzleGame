@@ -34,10 +34,6 @@ public class PlateauPuzzle extends View {
         super(context);
         difficulte = 1;
         puzzleBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.montagnes1);
-//        resizePuzzleBitmap();
-
-        decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.montagnes1));
-        imageList.get(0).setFixed(true);
 
 
 //        ImagePuzzle image1 = new ImagePuzzle(
@@ -54,13 +50,37 @@ public class PlateauPuzzle extends View {
         piecesToPlace = 8;
     }
 
-    public void resizePuzzleBitmap() {
-        int width = puzzleBitmap.getWidth();
-        int height = puzzleBitmap.getHeight();
-        puzzleBitmap = Bitmap.createScaledBitmap(puzzleBitmap, getWidth(), puzzleBitmap.getHeight(), false);
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        if (puzzleBitmap != null) {
+            resizeImageToFitScreen(w, h);
+
+            decouperImage(puzzleBitmap);
+            ImagePuzzle fixedPiece = imageList.get(0);
+            fixedPiece.setFixed(true);
+            putImageOnTheBack(fixedPiece);
+        }
     }
 
-    public void decouperImage(Bitmap sourceImage) {
+    private void resizeImageToFitScreen(int viewWidth, int viewHeight) {
+        viewWidth = viewWidth - BORDER_SIZE; /* BORDER_SIZE * 2 laissait une ligne blance */
+        viewHeight = viewHeight - BORDER_SIZE;
+        int imageWidth = puzzleBitmap.getWidth();
+        int imageHeight = puzzleBitmap.getHeight();
+        float widthRatio = (float)viewWidth / imageWidth;
+        float heightRatio = (float)viewHeight / imageHeight;
+
+        if (widthRatio <= heightRatio) {
+            int newHeight = (int) (imageHeight * widthRatio);
+            puzzleBitmap = Bitmap.createScaledBitmap(puzzleBitmap, viewWidth, newHeight, true);
+        }
+        else {
+            int newWidth = (int) (imageWidth * heightRatio);
+            puzzleBitmap = Bitmap.createScaledBitmap(puzzleBitmap, newWidth, viewHeight, true);
+        }
+    }
+
+    private void decouperImage(Bitmap sourceImage) {
         int nbRow;
         int nbCol;
         if (difficulte == 1) {
@@ -132,9 +152,7 @@ public class PlateauPuzzle extends View {
                     decalageX = mX - imageSelectionnee.getX();
                     decalageY = mY - imageSelectionnee.getY();
 
-                    /* On place l'image en tête de liste */
-                    imageList.remove(imageSelectionnee);
-                    imageList.add(0, imageSelectionnee);
+                    putImageOnTheFront(imageSelectionnee);
                     return true;
                 } else {
                     return false;
@@ -157,10 +175,7 @@ public class PlateauPuzzle extends View {
                     imageSelectionnee.setX(mX - decalageX);
                     imageSelectionnee.setY(mY - decalageY);
                     if (imageSelectionnee.isAtTheRightPlace(imageSelectionnee.getX(), imageSelectionnee.getY())) {
-                        /* On place l'image à la fin */
-                        imageList.remove(imageSelectionnee);
-                        imageList.add(imageSelectionnee);
-
+                        putImageOnTheBack(imageSelectionnee);
                         imageSelectionnee.setPositionToFinal();
                         imageSelectionnee.setFixed(true);
                         piecesToPlace--;
@@ -174,7 +189,17 @@ public class PlateauPuzzle extends View {
         }
     }
 
-    public ImagePuzzle getImageAt(int x, int y) {
+    private void putImageOnTheFront(ImagePuzzle image) {
+        imageList.remove(image);
+        imageList.add(0, image);
+    }
+
+    private void putImageOnTheBack(ImagePuzzle image) {
+        imageList.remove(image);
+        imageList.add(image);
+    }
+
+    private ImagePuzzle getImageAt(int x, int y) {
         for (ImagePuzzle image : imageList) {
             if (x > image.getX() && x < image.getX() + image.getBitmap().getWidth()
                     && y > image.getY() && y < image.getY() + image.getBitmap().getHeight()) {
