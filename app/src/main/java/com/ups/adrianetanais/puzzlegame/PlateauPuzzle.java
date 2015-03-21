@@ -19,6 +19,7 @@ import java.util.List;
 public class PlateauPuzzle extends View {
     public static final int BORDER_SIZE = 2;
 
+    private Bitmap puzzleBitmap;
     private List<ImagePuzzle> imageList = new LinkedList<>();
     private ImagePuzzle imageSelectionnee = null;
 
@@ -29,7 +30,7 @@ public class PlateauPuzzle extends View {
     private int piecesToPlace;
     private int difficulte;
 
-    public PlateauPuzzle(Context context, int difficulte) {
+    public PlateauPuzzle(Context context) {
         super(context);
         this.difficulte = difficulte;
         switch (difficulte) {
@@ -68,10 +69,7 @@ public class PlateauPuzzle extends View {
             nbRow = 3;
             nbCol = 3;
         }
-        else if (difficulte == 2){
-            nbRow = 2;
-            nbCol = 2;
-        } else {
+        else {
             nbRow = 2;
             nbCol = 2;
         }
@@ -115,6 +113,12 @@ public class PlateauPuzzle extends View {
         canvas.drawBitmap(bitmapWithBorder, image.getX(), image.getY(), null);
     }
 
+    public void drawFinalRectangle(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setTextSize(80);
+        canvas.drawText("Bravoooo !!!", 350, 350, paint);
+    }
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
