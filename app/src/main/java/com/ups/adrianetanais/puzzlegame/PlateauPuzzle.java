@@ -29,10 +29,21 @@ public class PlateauPuzzle extends View {
     private int piecesToPlace;
     private int difficulte;
 
-    public PlateauPuzzle(Context context) {
+    public PlateauPuzzle(Context context, int difficulte) {
         super(context);
-        difficulte = 1;
-        decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.montagnes1));
+        this.difficulte = difficulte;
+        switch (difficulte) {
+            case 1 :
+                decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.montagnes1));
+                break;
+            case 2 :
+                decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.mer));
+                break;
+            case 3 :
+                decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.desert));
+                break;
+        }
+       // decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.montagnes1));
         imageList.get(0).setFixed(true);
 
 
@@ -57,7 +68,10 @@ public class PlateauPuzzle extends View {
             nbRow = 3;
             nbCol = 3;
         }
-        else {
+        else if (difficulte == 2){
+            nbRow = 2;
+            nbCol = 2;
+        } else {
             nbRow = 2;
             nbCol = 2;
         }
@@ -87,8 +101,6 @@ public class PlateauPuzzle extends View {
         for (Iterator<ImagePuzzle> iter = ((LinkedList<ImagePuzzle>) imageList).descendingIterator(); iter.hasNext(); ) {
             drawImagePuzzle(canvas, iter.next());
         }
-        if (puzzleIsFinished())
-            drawFinalRectangle(canvas);
     }
 
     public void drawImagePuzzle(Canvas canvas, ImagePuzzle image) {
@@ -103,12 +115,6 @@ public class PlateauPuzzle extends View {
         canvas.drawBitmap(bitmapWithBorder, image.getX(), image.getY(), null);
     }
 
-    public void drawFinalRectangle(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setTextSize(80);
-        canvas.drawText("Bravoooo !!!", 350, 350, paint);
-    }
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {

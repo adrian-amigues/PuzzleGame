@@ -10,7 +10,6 @@ import android.widget.Button;
 
 
 public class MainActivity extends ActionBarActivity {
-    public final static String DIFFICULTE = "sdz.chapitreTrois.intent.example.DIFFICULTE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +20,25 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite = new Intent(MainActivity.this, IntentPuzzle.class);
-                secondeActivite.putExtra(DIFFICULTE, 0);
+                secondeActivite.putExtra("DIFFICULTE", 1);
+                startActivity(secondeActivite);
+            }
+        });
+        Button choixMoyen = (Button) findViewById(R.id.moyen);
+        choixMoyen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent secondeActivite = new Intent(MainActivity.this, IntentPuzzle.class);
+                secondeActivite.putExtra("DIFFICULTE", 2);
+                startActivity(secondeActivite);
+            }
+        });
+        Button choixDifficile = (Button) findViewById(R.id.difficile);
+        choixDifficile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent secondeActivite = new Intent(MainActivity.this, IntentPuzzle.class);
+                secondeActivite.putExtra("DIFFICULTE", 3);
                 startActivity(secondeActivite);
             }
         });

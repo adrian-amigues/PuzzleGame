@@ -20,8 +20,51 @@
         android:layout_height="wrap_content"
         android:text="Facile"
         android:id="@+id/facile"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="41dp"
+        android:minWidth="150dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pour jouer, veuillez choisir un niveau :"
+        android:id="@+id/textView"
+        android:textSize="30dp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="40dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Moyen"
+        android:id="@+id/moyen"
+        android:layout_below="@+id/facile"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:minWidth="150dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dfficile"
+        android:id="@+id/difficile"
+        android:layout_below="@+id/moyen"
+        android:layout_alignRight="@+id/moyen"
+        android:layout_alignEnd="@+id/moyen"
+        android:minWidth="150dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenue"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="70dp" />
 
 </RelativeLayout>
