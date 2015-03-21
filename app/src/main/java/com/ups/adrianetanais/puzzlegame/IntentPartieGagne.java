@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-/**
- * Created by Anaïs on 21/03/2015.
- */
 public class IntentPartieGagne extends Activity {
     //objet qui vas utiliser le service vibrator
     Vibrator vibreur;

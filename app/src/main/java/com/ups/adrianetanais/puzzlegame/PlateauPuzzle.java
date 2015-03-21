@@ -195,10 +195,7 @@ public class PlateauPuzzle extends View {
                     imageSelectionnee.setX(mX - decalageX);
                     imageSelectionnee.setY(mY - decalageY);
                     if (imageSelectionnee.isAtTheRightPlace(imageSelectionnee.getX(), imageSelectionnee.getY())) {
-                        /* On place l'image à la fin */
-                        imageList.remove(imageSelectionnee);
-                        imageList.add(imageSelectionnee);
-
+                        putImageOnTheBack(imageSelectionnee);
                         imageSelectionnee.setPositionToFinal();
                         imageSelectionnee.setFixed(true);
                         piecesToPlace--;
