@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".IntentPuzzle" />
+        <activity android:name=".IntentChoixPuzzle" />
+        <activity android:name=".IntentPartieGagne" />
     </application>
 
 </manifest>
