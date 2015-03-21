@@ -1,6 +1,7 @@
 package com.ups.adrianetanais.puzzlegame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -27,36 +28,26 @@ public class PlateauPuzzle extends View {
     private int mY;
     private int decalageX;
     private int decalageY;
-    private int piecesToPlace;
+    private int piecesToPlace=8;
     private int difficulte;
+    private int idImage;
 
-    public PlateauPuzzle(Context context) {
+    public PlateauPuzzle(Context context,int difficulte, int idImage) {
         super(context);
         this.difficulte = difficulte;
+        this.idImage = idImage;
         switch (difficulte) {
             case 1 :
-                decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.montagnes1));
+                decouperImage(BitmapFactory.decodeResource(getResources(), idImage));
                 break;
             case 2 :
-                decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.mer));
+                decouperImage(BitmapFactory.decodeResource(getResources(), idImage));
                 break;
             case 3 :
-                decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.desert));
+                decouperImage(BitmapFactory.decodeResource(getResources(), idImage));
                 break;
         }
-       // decouperImage(BitmapFactory.decodeResource(getResources(), R.drawable.montagnes1));
         imageList.get(0).setFixed(true);
-
-
-//        ImagePuzzle image1 = new ImagePuzzle(
-//                BitmapFactory.decodeResource(getResources(), R.drawable.fishpiece1), 0, 0, 0, 0);
-//        image1.setFixed(true);
-//        ImagePuzzle image2 = new ImagePuzzle(
-//                BitmapFactory.decodeResource(getResources(), R.drawable.fishpiece2)
-//                , image1.getBitmap().getWidth() - 100, 0
-//                , image1.getX() + image1.getBitmap().getWidth(), 0);
-//        imageList.add(image1);
-//        imageList.add(image2);
 
         // Hardcoded, à modifier
         piecesToPlace = 8;
@@ -98,6 +89,12 @@ public class PlateauPuzzle extends View {
         super.onDraw(canvas);
         for (Iterator<ImagePuzzle> iter = ((LinkedList<ImagePuzzle>) imageList).descendingIterator(); iter.hasNext(); ) {
             drawImagePuzzle(canvas, iter.next());
+        }
+        if (puzzleIsFinished()){
+            System.out.println("Partie Finie");
+            Intent i = new Intent(this.getContext(),IntentPartieGagne.class);
+            i.putExtra("IMAGE",idImage);
+            this.getContext().startActivity(i);
         }
     }
 

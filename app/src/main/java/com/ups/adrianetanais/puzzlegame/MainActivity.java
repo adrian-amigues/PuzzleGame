@@ -19,7 +19,7 @@ public class MainActivity extends ActionBarActivity {
         choixFacile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondeActivite = new Intent(MainActivity.this, IntentPuzzle.class);
+                Intent secondeActivite = new Intent(MainActivity.this, IntentChoixPuzzle.class);
                 secondeActivite.putExtra("DIFFICULTE", 1);
                 startActivity(secondeActivite);
             }
@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
         choixMoyen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondeActivite = new Intent(MainActivity.this, IntentPuzzle.class);
+                Intent secondeActivite = new Intent(MainActivity.this, IntentChoixPuzzle.class);
                 secondeActivite.putExtra("DIFFICULTE", 2);
                 startActivity(secondeActivite);
             }
@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity {
         choixDifficile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondeActivite = new Intent(MainActivity.this, IntentPuzzle.class);
+                Intent secondeActivite = new Intent(MainActivity.this, IntentChoixPuzzle.class);
                 secondeActivite.putExtra("DIFFICULTE", 3);
                 startActivity(secondeActivite);
             }
