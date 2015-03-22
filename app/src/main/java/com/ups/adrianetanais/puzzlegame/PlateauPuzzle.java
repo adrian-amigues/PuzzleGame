@@ -29,8 +29,8 @@ public class PlateauPuzzle extends View {
     private int mY;
     private int decalageX;
     private int decalageY;
-    private int piecesToPlace;
-    private int difficulte = 5;
+    private int piecesToPlace=8;
+    private int difficulte;
     private int idImage;
 
     public PlateauPuzzle(Context context,int difficulte, int idImage) {

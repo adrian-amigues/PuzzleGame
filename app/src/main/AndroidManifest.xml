@@ -20,5 +20,5 @@
         <activity android:name=".IntentChoixPuzzle" />
         <activity android:name=".IntentPartieGagne" />
     </application>
-
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 </manifest>
