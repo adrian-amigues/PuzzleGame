@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class IntentPartieGagne extends Activity {
@@ -22,10 +23,14 @@ public class IntentPartieGagne extends Activity {
         vibreur = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         //Vibreur pas ok, implementer l'affichage de l'image gagnante
+        Intent i = getIntent();
+        int idImage = i.getIntExtra("IMAGE",R.drawable.montagnes1);
+        ImageView image = (ImageView)findViewById(R.id.imageFin);
+        image.setImageResource(idImage);
 
 
         Button btsauvegarde = (Button) findViewById(R.id.buttonMenu);
-//        vibreur.vibrate(100);
+        vibreur.vibrate(1000);
         btsauvegarde.setOnCreateContextMenuListener(this);
         //action sur le clique du bouton
         btsauvegarde.setOnClickListener(new Button.OnClickListener() {

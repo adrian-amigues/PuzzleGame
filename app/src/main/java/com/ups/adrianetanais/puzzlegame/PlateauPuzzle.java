@@ -94,8 +94,8 @@ public class PlateauPuzzle extends View {
             nbCol = 3;
         }
         else {
-            nbRow = 2;
-            nbCol = 2;
+            nbRow = 4;
+            nbCol = 4;
         }
 
         Random random = new Random();

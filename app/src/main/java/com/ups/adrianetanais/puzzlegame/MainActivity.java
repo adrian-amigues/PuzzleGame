@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -40,6 +41,14 @@ public class MainActivity extends ActionBarActivity {
                 Intent secondeActivite = new Intent(MainActivity.this, IntentChoixPuzzle.class);
                 secondeActivite.putExtra("DIFFICULTE", 3);
                 startActivity(secondeActivite);
+            }
+        });
+
+        Button buttunExit = (Button)findViewById(R.id.buttonQuitter);
+        buttunExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.exit(0);
             }
         });
 
