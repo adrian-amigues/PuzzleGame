@@ -29,43 +29,57 @@ public class PlateauPuzzle extends View {
     private int mY;
     private int decalageX;
     private int decalageY;
-    private int piecesToPlace=8;
-    private int difficulte;
+    private int piecesToPlace;
+    private int difficulte = 5;
     private int idImage;
 
     public PlateauPuzzle(Context context,int difficulte, int idImage) {
         super(context);
+        System.out.println("ici constructeur");
         this.difficulte = difficulte;
         this.idImage = idImage;
-        switch (difficulte) {
-            case 1 :
-                decouperImage(BitmapFactory.decodeResource(getResources(), idImage));
-                break;
-            case 2 :
-                decouperImage(BitmapFactory.decodeResource(getResources(), idImage));
-                break;
-            case 3 :
-                decouperImage(BitmapFactory.decodeResource(getResources(), idImage));
-                break;
-        }
-        imageList.get(0).setFixed(true);
-
-        // Hardcoded, à modifier
-        piecesToPlace = 8;
+        this.puzzleBitmap = BitmapFactory.decodeResource(getResources(), idImage);
+    }
+    public PlateauPuzzle(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+    public PlateauPuzzle(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        System.out.println("ici onSizeChanged, puzzleBitmap = "+puzzleBitmap);
         if (puzzleBitmap != null) {
+            System.out.println("bitmap non null");
             resizeImageToFitScreen(w, h);
-
-            decouperImage(puzzleBitmap);
-            ImagePuzzle fixedPiece = imageList.get(0);
-            fixedPiece.setX(0);
-            fixedPiece.setY(0);
-            fixedPiece.setFixed(true);
-            putImageOnTheBack(fixedPiece);
+            fragmentImage(puzzleBitmap);
+            placeFirstPuzzlePiece();
         }
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        for (Iterator<ImagePuzzle> iter = ((LinkedList<ImagePuzzle>) imageList).descendingIterator(); iter.hasNext(); ) {
+            drawImagePuzzle(canvas, iter.next());
+        }
+        System.out.println("ici onDraw, difficulte = "+difficulte);
+        if (puzzleIsFinished()){
+            System.out.println("Partie Finie");
+            Intent i = new Intent(this.getContext(),IntentPartieGagne.class);
+            i.putExtra("IMAGE",idImage);
+            this.getContext().startActivity(i);
+        }
+    }
+
+    private void placeFirstPuzzlePiece() {
+        ImagePuzzle fixedPiece = imageList.get(0);
+        fixedPiece.setX(0);
+        fixedPiece.setY(0);
+        fixedPiece.setFixed(true);
+        piecesToPlace--;
+        putImageOnTheBack(fixedPiece);
     }
 
     private void resizeImageToFitScreen(int viewWidth, int viewHeight) {
@@ -86,17 +100,46 @@ public class PlateauPuzzle extends View {
         }
     }
 
-    private void decouperImage(Bitmap sourceImage) {
+    public void drawImagePuzzle(Canvas canvas, ImagePuzzle image) {
+        Bitmap bitmap = image.getBitmap();
+        Bitmap bitmapWithBorder = Bitmap.createBitmap(
+                bitmap.getWidth() + BORDER_SIZE * 2, bitmap.getHeight() + BORDER_SIZE * 2
+                , bitmap.getConfig());
+        Canvas backgroundCanvas = new Canvas(bitmapWithBorder);
+        backgroundCanvas.drawColor(Color.GRAY);
+        backgroundCanvas.drawBitmap(image.getBitmap(), BORDER_SIZE, BORDER_SIZE, null);
+
+        canvas.drawBitmap(bitmapWithBorder, image.getX(), image.getY(), null);
+    }
+
+    public void drawFinalRectangle(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setTextSize(80);
+        canvas.drawText("Bravoooo !!!", 350, 350, paint);
+    }
+
+    private void fragmentImage(Bitmap sourceImage) {
         int nbRow;
         int nbCol;
-        if (difficulte == 1) {
-            nbRow = 3;
-            nbCol = 3;
+        switch (difficulte) {
+            case 1 :
+                nbRow = 2;
+                nbCol = 2;
+                break;
+            case 2 :
+                nbRow = 3;
+                nbCol = 3;
+                break;
+            case 3 :
+                nbRow = 4;
+                nbCol = 4;
+                break;
+            default :
+                nbRow = 2;
+                nbCol = 2;
         }
-        else {
-            nbRow = 2;
-            nbCol = 2;
-        }
+        piecesToPlace = nbRow * nbCol;
 
         Random random = new Random();
         boolean putPiecesRandomly = false; /* pourrait être une option ?.. */
@@ -117,47 +160,6 @@ public class PlateauPuzzle extends View {
                 }
             }
         }
-    }
-
-    public PlateauPuzzle(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public PlateauPuzzle(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        for (Iterator<ImagePuzzle> iter = ((LinkedList<ImagePuzzle>) imageList).descendingIterator(); iter.hasNext(); ) {
-            drawImagePuzzle(canvas, iter.next());
-        }
-        if (puzzleIsFinished()){
-            System.out.println("Partie Finie");
-            Intent i = new Intent(this.getContext(),IntentPartieGagne.class);
-            i.putExtra("IMAGE",idImage);
-            this.getContext().startActivity(i);
-        }
-    }
-
-    public void drawImagePuzzle(Canvas canvas, ImagePuzzle image) {
-        Bitmap bitmap = image.getBitmap();
-        Bitmap bitmapWithBorder = Bitmap.createBitmap(
-                bitmap.getWidth() + BORDER_SIZE * 2, bitmap.getHeight() + BORDER_SIZE * 2
-                , bitmap.getConfig());
-        Canvas backgroundCanvas = new Canvas(bitmapWithBorder);
-        backgroundCanvas.drawColor(Color.GRAY);
-        backgroundCanvas.drawBitmap(image.getBitmap(), BORDER_SIZE, BORDER_SIZE, null);
-
-        canvas.drawBitmap(bitmapWithBorder, image.getX(), image.getY(), null);
-    }
-
-    public void drawFinalRectangle(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setTextSize(80);
-        canvas.drawText("Bravoooo !!!", 350, 350, paint);
     }
 
     @Override
