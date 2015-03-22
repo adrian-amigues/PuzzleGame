@@ -26,6 +26,7 @@ public class IntentChoixPuzzle extends ActionBarActivity {
                 secondeActivite.putExtra("DIFFICULTE", difficulte);
                 secondeActivite.putExtra("IMAGE",R.drawable.mer);
                 startActivity(secondeActivite);
+                finish();
             }
         });
         ImageButton choixMontagne = (ImageButton) findViewById(R.id.buttonMontagne);

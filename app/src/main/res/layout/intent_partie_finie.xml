@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#FF9900">
 
     <TextView
         android:layout_width="183dp"
@@ -11,7 +12,8 @@
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal"
         android:textColor="#ff3d5dff"
-        android:textSize="50dp" />
+        android:textSize="50dp"
+        android:textStyle="bold|italic" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -22,7 +24,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MenuPrincipal"
+        android:text="Menu Principal"
         android:id="@+id/buttonMenu"
         android:layout_gravity="right" />
 </LinearLayout>

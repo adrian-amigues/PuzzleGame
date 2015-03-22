@@ -1,5 +1,6 @@
 package com.ups.adrianetanais.puzzlegame;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -48,7 +49,10 @@ public class MainActivity extends ActionBarActivity {
         buttunExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.exit(0);
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
             }
         });
 
@@ -70,6 +74,10 @@ public class MainActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_informations){
+            Dialog dialog = new Dialog(this);
+            dialog.setTitle("Réalisée par Adrian Amigues et Anaïs Cannac");
+            dialog.show();
         }
 
         return super.onOptionsItemSelected(item);
