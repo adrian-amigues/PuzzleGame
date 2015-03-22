@@ -3,6 +3,7 @@ package com.ups.adrianetanais.puzzlegame;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
@@ -14,6 +15,8 @@ public class IntentPartieGagne extends Activity {
     //objet qui vas utiliser le service vibrator
     Vibrator vibreur;
     TextView sContenu;
+    private MediaPlayer mPlayer = null;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class IntentPartieGagne extends Activity {
         ImageView image = (ImageView)findViewById(R.id.imageFin);
         image.setImageResource(idImage);
 
+        playSound(R.raw.mario);
 
         Button btsauvegarde = (Button) findViewById(R.id.buttonMenu);
         vibreur.vibrate(1000);
@@ -37,7 +41,25 @@ public class IntentPartieGagne extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(IntentPartieGagne.this, MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
+    }
+    private void playSound(int resId) {
+        if(mPlayer != null) {
+            mPlayer.stop();
+            mPlayer.release();
+        }
+        mPlayer = MediaPlayer.create(this, resId);
+        mPlayer.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mPlayer != null) {
+            mPlayer.stop();
+            mPlayer.release();
+        }
     }
 }
