@@ -5,18 +5,19 @@
     android:weightSum="1">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="183dp"
         android:layout_height="wrap_content"
         android:text="Bravo !!!"
         android:id="@+id/textView4"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ff3d5dff"
+        android:textSize="50dp" />
 
     <ImageView
-        android:layout_width="66dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="315dp"
         android:id="@+id/imageFin"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.13" />
+        android:layout_weight="0.22" />
 
     <Button
         android:layout_width="wrap_content"
