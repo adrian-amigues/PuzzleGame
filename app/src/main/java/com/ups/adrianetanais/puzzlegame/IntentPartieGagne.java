@@ -22,24 +22,28 @@ public class IntentPartieGagne extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intent_partie_finie);
-        //intanciation de l'objet levibreur
-        vibreur = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        //Vibreur pas ok, implementer l'affichage de l'image gagnante
+        vibreur = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibreur.vibrate(1000);
+
+        //Recuperer l'image et le niveau
         Intent i = getIntent();
-        int idImage = i.getIntExtra("IMAGE",R.drawable.montagnes1);
+        final int idImage = i.getIntExtra("IMAGE",R.drawable.montagnes1);
+        final int difficulte = i.getIntExtra("DIFFICULTE",1);
         ImageView image = (ImageView)findViewById(R.id.imageFin);
         image.setImageResource(idImage);
 
+        //Jouer le son
         playSound(R.raw.mario);
 
-        Button btsauvegarde = (Button) findViewById(R.id.buttonMenu);
-        vibreur.vibrate(1000);
+        Button btsauvegarde = (Button) findViewById(R.id.buttonProgression);
         btsauvegarde.setOnCreateContextMenuListener(this);
         //action sur le clique du bouton
         btsauvegarde.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(IntentPartieGagne.this, MainActivity.class);
+                Intent i = new Intent(IntentPartieGagne.this, IntentProgression.class);
+                i.putExtra("IMAGE",idImage);
+                i.putExtra("DIFFICULTE",difficulte);
                 startActivity(i);
                 finish();
             }

@@ -30,7 +30,7 @@ public class PlateauPuzzle extends View {
     private int decalageX;
     private int decalageY;
     private int piecesToPlace=8;
-    private int difficulte;
+    private int difficulte=1;
     private int idImage;
 
     public PlateauPuzzle(Context context,int difficulte, int idImage) {
@@ -64,11 +64,11 @@ public class PlateauPuzzle extends View {
         for (Iterator<ImagePuzzle> iter = ((LinkedList<ImagePuzzle>) imageList).descendingIterator(); iter.hasNext(); ) {
             drawImagePuzzle(canvas, iter.next());
         }
-        System.out.println("ici onDraw, difficulte = "+difficulte);
         if (puzzleIsFinished()){
             System.out.println("Partie Finie");
             Intent i = new Intent(this.getContext(),IntentPartieGagne.class);
             i.putExtra("IMAGE",idImage);
+            i.putExtra("DIFFICULTE",difficulte);
             this.getContext().startActivity(i);
         }
     }
