@@ -35,7 +35,6 @@ public class PlateauPuzzle extends View {
 
     public PlateauPuzzle(Context context,int difficulte, int idImage) {
         super(context);
-        System.out.println("ici constructeur");
         this.difficulte = difficulte;
         this.idImage = idImage;
         this.puzzleBitmap = BitmapFactory.decodeResource(getResources(), idImage);
@@ -49,9 +48,7 @@ public class PlateauPuzzle extends View {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        System.out.println("ici onSizeChanged, puzzleBitmap = "+puzzleBitmap);
         if (puzzleBitmap != null) {
-            System.out.println("bitmap non null");
             resizeImageToFitScreen(w, h);
             fragmentImage(puzzleBitmap);
             placeFirstPuzzlePiece();
@@ -65,7 +62,6 @@ public class PlateauPuzzle extends View {
             drawImagePuzzle(canvas, iter.next());
         }
         if (puzzleIsFinished()){
-            System.out.println("Partie Finie");
             Intent i = new Intent(this.getContext(),IntentPartieGagne.class);
             i.putExtra("IMAGE",idImage);
             i.putExtra("DIFFICULTE",difficulte);
