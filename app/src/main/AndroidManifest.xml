@@ -19,6 +19,7 @@
         <activity android:name=".IntentPuzzle" />
         <activity android:name=".IntentChoixPuzzle" />
         <activity android:name=".IntentPartieGagne" />
+        <activity android:name=".IntentProgression" />
     </application>
     <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 </manifest>
