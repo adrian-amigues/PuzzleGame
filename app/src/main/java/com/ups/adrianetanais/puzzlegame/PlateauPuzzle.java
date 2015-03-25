@@ -32,6 +32,7 @@ public class PlateauPuzzle extends View {
     private int piecesToPlace=8;
     private int difficulte=1;
     private int idImage;
+    private boolean showPuzzleFinished = false;
 
     public PlateauPuzzle(Context context,int difficulte, int idImage) {
         super(context);
@@ -61,7 +62,7 @@ public class PlateauPuzzle extends View {
         for (Iterator<ImagePuzzle> iter = ((LinkedList<ImagePuzzle>) imageList).descendingIterator(); iter.hasNext(); ) {
             drawImagePuzzle(canvas, iter.next());
         }
-        if (puzzleIsFinished()){
+        if (puzzleIsFinished() && !showPuzzleFinished){
             Intent i = new Intent(this.getContext(),IntentPartieGagne.class);
             i.putExtra("IMAGE",idImage);
             i.putExtra("DIFFICULTE",difficulte);
@@ -105,7 +106,11 @@ public class PlateauPuzzle extends View {
         backgroundCanvas.drawColor(Color.GRAY);
         backgroundCanvas.drawBitmap(image.getBitmap(), BORDER_SIZE, BORDER_SIZE, null);
 
-        canvas.drawBitmap(bitmapWithBorder, image.getX(), image.getY(), null);
+        if (showPuzzleFinished) {
+            canvas.drawBitmap(bitmapWithBorder, image.getFinalX(), image.getFinalY(), null);
+        } else {
+            canvas.drawBitmap(bitmapWithBorder, image.getX(), image.getY(), null);
+        }
     }
 
     public void drawFinalRectangle(Canvas canvas) {
@@ -232,6 +237,11 @@ public class PlateauPuzzle extends View {
 
     public boolean puzzleIsFinished() {
         return piecesToPlace == 0;
+    }
+
+    public void toggleShowPuzzleFinished () {
+        showPuzzleFinished = !showPuzzleFinished;
+        invalidate();
     }
 }
 

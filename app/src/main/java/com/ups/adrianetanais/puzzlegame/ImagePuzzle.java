@@ -50,6 +50,14 @@ public class ImagePuzzle {
         this.fixed = bool;
     }
 
+    public int getFinalX() {
+        return finalX;
+    }
+
+    public int getFinalY() {
+        return finalY;
+    }
+
     public boolean isAtTheRightPlace(int x, int y) {
         return (x > finalX - ACCEPTANCE_MARGIN && x < finalX + ACCEPTANCE_MARGIN
                 && y > finalY - ACCEPTANCE_MARGIN && y < finalY + ACCEPTANCE_MARGIN);
