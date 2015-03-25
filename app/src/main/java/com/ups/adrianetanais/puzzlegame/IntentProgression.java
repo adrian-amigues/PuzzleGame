@@ -8,12 +8,14 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Anaïs on 23/03/2015.
  */
 public class IntentProgression extends Activity {
-    protected int difficulte;
-    protected int idImage;
+
+    private ArrayList <Integer> tabImageEffectuees = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,10 @@ public class IntentProgression extends Activity {
         Intent i = getIntent();
         final int idImage = i.getIntExtra("IMAGE",R.drawable.montagnes1);
         final int difficulte = i.getIntExtra("DIFFICULTE",1);
-        ajoutNiveau(numeroTableauProgression(idImage,difficulte));
+
+        tabImageEffectuees.add(numeroTableauProgression(idImage,difficulte));
+        for (int image : tabImageEffectuees)
+            ajoutNiveau(image);
 
 
         Button btsauvegarde = (Button) findViewById(R.id.buttonMenu);
@@ -32,6 +37,8 @@ public class IntentProgression extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(IntentProgression.this, MainActivity.class);
                 startActivity(i);
+                onPause();
+
             }
         });
     }
@@ -70,7 +77,7 @@ public class IntentProgression extends Activity {
         if (image != null)
            image.setImageResource(R.drawable.vrai);
     }
-    public int numeroTableauProgression (int idImage, int niveau){
+     public int numeroTableauProgression (int idImage, int niveau){
         if (idImage == R.drawable.mer)
             return niveau;
         else if (idImage == R.drawable.desert)
