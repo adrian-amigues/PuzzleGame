@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:text="Choisissez un puzzle"
         android:id="@+id/textView3"
-        android:textSize="50dp" />
+        android:textSize="50dp"
+        android:gravity="center_vertical|center_horizontal" />
 
     <ImageButton
         android:layout_width="175dp"
