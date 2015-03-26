@@ -26,7 +26,8 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
         Intent i = getIntent();
         int difficulte =  i.getIntExtra("DIFFICULTE",1);
         int idImage = i.getIntExtra("IMAGE",R.drawable.montagnes1);
-        plateau = new PlateauPuzzle(this,difficulte,idImage);
+        boolean aleatoire = i.getBooleanExtra("ALEATOIRE",false);
+        plateau = new PlateauPuzzle(this,difficulte,idImage,aleatoire);
         setContentView(plateau);
     }
 

@@ -33,12 +33,15 @@ public class PlateauPuzzle extends View {
     private int difficulte=1;
     private int idImage;
     private boolean showPuzzleFinished = false;
+    private boolean putPiecesRandomly;
 
-    public PlateauPuzzle(Context context,int difficulte, int idImage) {
+    public PlateauPuzzle(Context context,int difficulte, int idImage, boolean aleatoire) {
         super(context);
         this.difficulte = difficulte;
         this.idImage = idImage;
         this.puzzleBitmap = BitmapFactory.decodeResource(getResources(), idImage);
+        this.putPiecesRandomly = aleatoire;
+        this.setBackgroundColor(0xFFFF9900);
     }
     public PlateauPuzzle(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -112,14 +115,6 @@ public class PlateauPuzzle extends View {
             canvas.drawBitmap(bitmapWithBorder, image.getX(), image.getY(), null);
         }
     }
-
-    public void drawFinalRectangle(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setTextSize(80);
-        canvas.drawText("Bravoooo !!!", 350, 350, paint);
-    }
-
     private void fragmentImage(Bitmap sourceImage) {
         int nbRow;
         int nbCol;
@@ -143,7 +138,6 @@ public class PlateauPuzzle extends View {
         piecesToPlace = nbRow * nbCol;
 
         Random random = new Random();
-        boolean putPiecesRandomly = false; /* pourrait être une option ?.. */
         int randomX;
         int randomY;
         int imageWidth = sourceImage.getWidth();

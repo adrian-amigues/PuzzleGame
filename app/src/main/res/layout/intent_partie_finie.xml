@@ -6,14 +6,16 @@
     android:background="#FF9900">
 
     <TextView
-        android:layout_width="183dp"
+        android:layout_width="333dp"
         android:layout_height="wrap_content"
         android:text="Bravo !!!"
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal"
         android:textColor="#ff3d5dff"
         android:textSize="50dp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        android:layout_margin="20dp"
+        android:gravity="center_vertical|center_horizontal" />
 
     <ImageView
         android:layout_width="match_parent"

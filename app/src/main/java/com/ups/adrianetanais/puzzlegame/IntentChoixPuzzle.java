@@ -16,6 +16,7 @@ public class IntentChoixPuzzle extends ActionBarActivity {
         //On recupere le choix du niveau
         Intent i = getIntent();
         final int difficulte =  i.getIntExtra("DIFFICULTE",1);
+        final boolean aleatoire = i.getBooleanExtra("ALEATOIRE",false);
 
         //On recupere le puzzle selectionne
         ImageButton choixMer = (ImageButton) findViewById(R.id.buttonMer);
@@ -25,6 +26,7 @@ public class IntentChoixPuzzle extends ActionBarActivity {
                 Intent secondeActivite = new Intent(IntentChoixPuzzle.this, IntentPuzzle.class);
                 secondeActivite.putExtra("DIFFICULTE", difficulte);
                 secondeActivite.putExtra("IMAGE",R.drawable.mer);
+                secondeActivite.putExtra("ALEATOIRE",aleatoire);
                 startActivity(secondeActivite);
                 finish();
             }
@@ -36,6 +38,7 @@ public class IntentChoixPuzzle extends ActionBarActivity {
                 Intent secondeActivite = new Intent(IntentChoixPuzzle.this, IntentPuzzle.class);
                 secondeActivite.putExtra("DIFFICULTE", difficulte);
                 secondeActivite.putExtra("IMAGE",R.drawable.montagnes1);
+                secondeActivite.putExtra("ALEATOIRE",aleatoire);
                 startActivity(secondeActivite);
             }
         });
@@ -46,6 +49,7 @@ public class IntentChoixPuzzle extends ActionBarActivity {
                 Intent secondeActivite = new Intent(IntentChoixPuzzle.this, IntentPuzzle.class);
                 secondeActivite.putExtra("DIFFICULTE", difficulte);
                 secondeActivite.putExtra("IMAGE",R.drawable.desert);
+                secondeActivite.putExtra("ALEATOIRE",aleatoire);
                 startActivity(secondeActivite);
             }
         });

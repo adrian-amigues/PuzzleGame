@@ -9,20 +9,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 
 public class MainActivity extends ActionBarActivity {
+    protected  boolean aleatoire = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxAleatoire);
+        System.out.println("Boolean main" + aleatoire);
+
         Button choixFacile = (Button) findViewById(R.id.facile);
         choixFacile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite = new Intent(MainActivity.this, IntentChoixPuzzle.class);
+                aleatoire = checkBox.isChecked();
                 secondeActivite.putExtra("DIFFICULTE", 1);
+                secondeActivite.putExtra("ALEATOIRE",aleatoire);
                 startActivity(secondeActivite);
             }
         });
@@ -31,7 +38,9 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite = new Intent(MainActivity.this, IntentChoixPuzzle.class);
+                aleatoire = checkBox.isChecked();
                 secondeActivite.putExtra("DIFFICULTE", 2);
+                secondeActivite.putExtra("ALEATOIRE",aleatoire);
                 startActivity(secondeActivite);
             }
         });
@@ -40,7 +49,9 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite = new Intent(MainActivity.this, IntentChoixPuzzle.class);
+                aleatoire = checkBox.isChecked();
                 secondeActivite.putExtra("DIFFICULTE", 3);
+                secondeActivite.putExtra("ALEATOIRE",aleatoire);
                 startActivity(secondeActivite);
             }
         });
