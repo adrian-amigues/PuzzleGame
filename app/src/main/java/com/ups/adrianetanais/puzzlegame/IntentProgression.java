@@ -1,13 +1,17 @@
 package com.ups.adrianetanais.puzzlegame;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -15,18 +19,37 @@ import java.util.ArrayList;
  */
 public class IntentProgression extends Activity {
 
-    private ArrayList <Integer> tabImageEffectuees = new ArrayList<>();
+    public static final String FILENAME = "progression.txt";
+    public static final int NUMBER_OF_DIFFICULTIES = 3;
+    public static final int NUMBER_OF_PUZZLES = 3;
+    public static final int NORMAL_NUMBER_OF_BYTES = NUMBER_OF_DIFFICULTIES * NUMBER_OF_PUZZLES;
+
+    private ArrayList <Integer> puzzlesDone = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intent_progression);
+
+//        printToFile();
+        printFileContent();
+        if (!fileIsValid()) {
+            System.out.println("File is not valid");
+            recreateFile();
+        } else {
+            System.out.println("File is valid");
+        }
+        printFileContent();
+
         Intent i = getIntent();
         final int idImage = i.getIntExtra("IMAGE",R.drawable.montagnes1);
         final int difficulte = i.getIntExtra("DIFFICULTE",1);
 
-        tabImageEffectuees.add(numeroTableauProgression(idImage,difficulte));
-        for (int image : tabImageEffectuees)
+        System.out.println("Updating puzzles");
+        updatePuzzlesDone(numeroTableauProgression(idImage, difficulte));
+        printFileContent();
+
+        for (int image : puzzlesDone)
             ajoutNiveau(image);
 
 
@@ -41,6 +64,126 @@ public class IntentProgression extends Activity {
 
             }
         });
+    }
+
+    private void updatePuzzlesDone(int newPuzzleDone) {
+        FileInputStream fis;
+        try {
+            fis = openFileInput(FILENAME);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Crash: openFileInput failed");
+        }
+        int currentByte;
+        int byteCount = 0;
+        try {
+            while((currentByte = fis.read()) != -1) {
+                if (byteCount+1 == newPuzzleDone) {
+                    puzzlesDone.add(newPuzzleDone);
+                } else if (currentByte == '1') {
+                    puzzlesDone.add(byteCount + 1);
+                }
+                byteCount++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        updatePuzzlesDoneFile();
+    }
+
+    private void updatePuzzlesDoneFile() {
+        FileOutputStream fos;
+        try {
+            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            for (int i = 0; i < NORMAL_NUMBER_OF_BYTES; i++) {
+                if (puzzlesDone.contains(i+1)) {
+                    fos.write('1');
+                } else {
+                    fos.write('0');
+                }
+            }
+            fos.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    private boolean fileIsValid() {
+        FileInputStream fis;
+        try {
+            fis = openFileInput(FILENAME);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Crash: openFileInput failed");
+        }
+        int byteCount = 0;
+        int currentByte;
+        try {
+            while ((currentByte = fis.read()) != -1) {
+                if (currentByte != '0' && currentByte != '1') {
+                    return false;
+                } else if (byteCount > NORMAL_NUMBER_OF_BYTES) {
+                    return false;
+                } else {
+                    byteCount++;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return (byteCount == NORMAL_NUMBER_OF_BYTES);
+    }
+
+    private void recreateFile() {
+        FileOutputStream fos;
+        try {
+            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            for (int i = 0; i < NORMAL_NUMBER_OF_BYTES; i++) {
+                fos.write('0');
+            }
+            fos.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+//    private void printToFile() {
+//        String str = "010000110";
+//        try {
+//            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+//            fos.write(str.getBytes());
+//            fos.close();
+//        } catch (IOException ioe) {
+//            ioe.printStackTrace();
+//        }
+//    }
+
+    private void printFileContent() {
+        FileInputStream fis;
+        try {
+            fis = openFileInput(FILENAME);
+            int currentByte;
+            System.out.println("**** Printing file content ****");
+            while ((currentByte = fis.read()) != -1) {
+                System.out.print((char) currentByte);
+            }
+            System.out.println("");
+            fis.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void ajoutNiveau (int niveauEffectue){
