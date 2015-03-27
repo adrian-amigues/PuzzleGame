@@ -10,7 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 
 public class IntentPuzzle extends ActionBarActivity implements SensorEventListener {
 
-    private static final int SHAKE_THRESHOLD = 600;
+    private static final int SHAKE_THRESHOLD = 400;
     private SensorManager sensorManager;
     private float x, y, z;
     private float lastX, lastY, lastZ;
@@ -66,7 +66,7 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
                 z = sensorEvent.values[2];
 
                 float speed = Math.abs(x+y+z - lastX - lastY - lastZ) / diffTime * 1000;
-                if (speed > SHAKE_THRESHOLD && (curTime - lastShake) > 200) {
+                if (speed > SHAKE_THRESHOLD && (curTime - lastShake) > 400) {
                     // On a bien secoué l'écran
                     isShaked = true;
                     lastShake = System.currentTimeMillis();
