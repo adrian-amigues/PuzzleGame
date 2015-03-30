@@ -21,18 +21,22 @@
         </activity>
         <activity android:name=".IntentPuzzle"
             android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden" />
+            android:configChanges="keyboardHidden"
+            android:label="Jeu"/>
         <activity android:name=".IntentChoixPuzzle"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden" />
+            android:configChanges="keyboardHidden"
+            android:label="Choix du Puzzle"/>
         <activity android:name=".IntentPartieGagne"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden" />
+            android:configChanges="keyboardHidden"
+            android:label="Bien joué ;)" />
         <activity android:name=".IntentProgression"
             android:launchMode="singleTask"
-            android:configChanges="keyboardHidden" />
+            android:configChanges="keyboardHidden"
+            android:label="Niveaux" />
     </application>
     <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 </manifest>

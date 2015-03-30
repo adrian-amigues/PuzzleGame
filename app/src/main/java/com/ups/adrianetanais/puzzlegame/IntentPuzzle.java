@@ -1,5 +1,6 @@
 package com.ups.adrianetanais.puzzlegame;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -17,6 +18,10 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
     private long lastUpdate = -1;
     private long lastShake = -1;
     private boolean isShaked = false;
+    public int CHOOSE_BUTTON_REQUEST = 0;
+    private int difficulte;
+    private int idImage;
+    private boolean aleatoire;
 
     private PlateauPuzzle plateau;
 
@@ -24,10 +29,10 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
-        int difficulte =  i.getIntExtra("DIFFICULTE",1);
-        int idImage = i.getIntExtra("IMAGE",R.drawable.montagnes1);
-        boolean aleatoire = i.getBooleanExtra("ALEATOIRE",false);
-        plateau = new PlateauPuzzle(this,difficulte,idImage,aleatoire);
+        this.difficulte =  i.getIntExtra("DIFFICULTE",1);
+        this.idImage = i.getIntExtra("IMAGE",R.drawable.montagnes1);
+        this.aleatoire = i.getBooleanExtra("ALEATOIRE",false);
+        plateau = new PlateauPuzzle(this,this.difficulte,this.idImage,this.aleatoire);
         setContentView(plateau);
     }
 
@@ -75,6 +80,19 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
                 lastX = x;
                 lastY = y;
                 lastZ = z;
+            }
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // On vérifie tout d'abord à quel intent on fait référence ici à l'aide de notre identifiant
+        if (requestCode == CHOOSE_BUTTON_REQUEST) {
+            // On vérifie aussi que l'opération s'est bien déroulée
+            if (resultCode == this.RESULT_CANCELED) {
+                // On affiche le bouton qui a été choisi
+                System.out.println("on a annulé");
+                plateau = new PlateauPuzzle(this,this.difficulte,this.idImage,this.aleatoire);
+                setContentView(plateau);
             }
         }
     }
