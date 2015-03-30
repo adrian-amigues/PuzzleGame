@@ -1,5 +1,6 @@
 package com.ups.adrianetanais.puzzlegame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -34,6 +36,7 @@ public class PlateauPuzzle extends View {
     private int idImage;
     private boolean showPuzzleFinished = false;
     private boolean putPiecesRandomly;
+
 
     public PlateauPuzzle(Context context,int difficulte, int idImage, boolean aleatoire) {
         super(context);
@@ -69,7 +72,7 @@ public class PlateauPuzzle extends View {
             Intent i = new Intent(this.getContext(),IntentPartieGagne.class);
             i.putExtra("IMAGE",idImage);
             i.putExtra("DIFFICULTE",difficulte);
-            this.getContext().startActivity(i);
+            ((Activity)this.getContext()).startActivityForResult(i,((Activity) this.getContext()).RESULT_CANCELED);
         }
     }
 
