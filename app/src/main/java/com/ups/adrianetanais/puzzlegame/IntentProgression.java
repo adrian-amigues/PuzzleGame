@@ -31,27 +31,17 @@ public class IntentProgression extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intent_progression);
 
-//        printToFile();
-        printFileContent();
         if (!fileIsValid()) {
-            System.out.println("File is not valid");
             recreateFile();
-        } else {
-            System.out.println("File is valid");
         }
-        printFileContent();
 
         Intent i = getIntent();
-        final int idImage = i.getIntExtra("IMAGE",R.drawable.montagnes1);
+        final int idImage = i.getIntExtra("IMAGE", -1);
         final int difficulte = i.getIntExtra("DIFFICULTE",1);
 
-        System.out.println("Updating puzzles");
         updatePuzzlesDone(numeroTableauProgression(idImage, difficulte));
-        printFileContent();
-
         for (int image : puzzlesDone)
             ajoutNiveau(image);
-
 
         Button btsauvegarde = (Button) findViewById(R.id.buttonMenu);
         btsauvegarde.setOnCreateContextMenuListener(this);
@@ -78,7 +68,7 @@ public class IntentProgression extends Activity {
         int byteCount = 0;
         try {
             while((currentByte = fis.read()) != -1) {
-                if (byteCount+1 == newPuzzleDone) {
+                if (newPuzzleDone != -1 && byteCount+1 == newPuzzleDone) {
                     puzzlesDone.add(newPuzzleDone);
                 } else if (currentByte == '1') {
                     puzzlesDone.add(byteCount + 1);
@@ -119,8 +109,18 @@ public class IntentProgression extends Activity {
         try {
             fis = openFileInput(FILENAME);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Crash: openFileInput failed");
+            // On crée le fichier
+            FileOutputStream fos;
+            System.out.println("Creating progression file !");
+            try {
+                fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                fos.close();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+            return false;
+//            e.printStackTrace();
+//            throw new RuntimeException("Crash: openFileInput failed");
         }
         int byteCount = 0;
         int currentByte;
@@ -158,17 +158,6 @@ public class IntentProgression extends Activity {
             ioe.printStackTrace();
         }
     }
-
-//    private void printToFile() {
-//        String str = "010000110";
-//        try {
-//            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-//            fos.write(str.getBytes());
-//            fos.close();
-//        } catch (IOException ioe) {
-//            ioe.printStackTrace();
-//        }
-//    }
 
     private void printFileContent() {
         FileInputStream fis;
@@ -221,11 +210,13 @@ public class IntentProgression extends Activity {
            image.setImageResource(R.drawable.vrai);
     }
      public int numeroTableauProgression (int idImage, int niveau){
-        if (idImage == R.drawable.mer)
-            return niveau;
-        else if (idImage == R.drawable.desert)
-            return niveau + 3;
-        else
-            return niveau + 6;
+         if (idImage == R.drawable.mer)
+             return niveau;
+         else if (idImage == R.drawable.desert)
+             return niveau + 3;
+         else if (idImage == R.drawable.montagnes1)
+             return niveau + 6;
+         else
+             return -1;
     }
 }
