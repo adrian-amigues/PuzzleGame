@@ -49,35 +49,6 @@
             <ImageView
                 android:layout_width="75dp"
                 android:layout_height="88dp"
-                android:id="@+id/imageMer"
-                android:src="@drawable/mer"
-                android:layout_marginRight="20dp"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/facileMer"
-                android:src="@drawable/faux"
-                android:layout_marginRight="20dp"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/moyenMer"
-                android:src="@drawable/faux"
-                android:layout_marginRight="20dp"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/difficileMer"
-                android:src="@drawable/faux"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="75dp"
-                android:layout_height="88dp"
                 android:id="@+id/imageDesert"
                 android:src="@drawable/desert"
                 android:layout_marginRight="20dp"/>
@@ -97,6 +68,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/difficileDesert"
+                android:src="@drawable/faux"
+                android:layout_marginRight="20dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="88dp"
+                android:id="@+id/imageMer"
+                android:src="@drawable/mer"
+                android:layout_marginRight="20dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/facileMer"
+                android:src="@drawable/faux"
+                android:layout_marginRight="20dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/moyenMer"
+                android:src="@drawable/faux"
+                android:layout_marginRight="20dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/difficileMer"
                 android:src="@drawable/faux"
                 android:layout_marginRight="20dp"/>
         </LinearLayout>

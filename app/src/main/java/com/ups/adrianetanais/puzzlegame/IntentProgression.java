@@ -179,22 +179,22 @@ public class IntentProgression extends Activity {
         ImageView image = null;
         switch (niveauEffectue) {
             case 1 :
-                image = (ImageView) findViewById (R.id.facileMer);
-                break;
-            case 2 :
-                image = (ImageView) findViewById (R.id.moyenMer);
-                break;
-            case 3 :
-                image = (ImageView) findViewById (R.id.difficileMer);
-                break;
-            case 4 :
                 image = (ImageView) findViewById (R.id.facileDesert);
                 break;
-            case 5 :
+            case 2 :
                 image = (ImageView) findViewById (R.id.moyenDesert);
                 break;
-            case 6 :
+            case 3 :
                 image = (ImageView) findViewById (R.id.difficileDesert);
+                break;
+            case 4 :
+                image = (ImageView) findViewById (R.id.facileMer);
+                break;
+            case 5 :
+                image = (ImageView) findViewById (R.id.moyenMer);
+                break;
+            case 6 :
+                image = (ImageView) findViewById (R.id.difficileMer);
                 break;
             case 7 :
                 image = (ImageView) findViewById (R.id.facileMontagne);
@@ -210,9 +210,9 @@ public class IntentProgression extends Activity {
            image.setImageResource(R.drawable.vrai);
     }
      public int numeroTableauProgression (int idImage, int niveau){
-         if (idImage == R.drawable.mer)
+         if (idImage == R.drawable.desert)
              return niveau;
-         else if (idImage == R.drawable.desert)
+         else if (idImage == R.drawable.mer)
              return niveau + 3;
          else if (idImage == R.drawable.montagnes1)
              return niveau + 6;
