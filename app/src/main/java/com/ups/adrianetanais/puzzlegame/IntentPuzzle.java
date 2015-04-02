@@ -1,6 +1,5 @@
 package com.ups.adrianetanais.puzzlegame;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -23,7 +22,7 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
     private int idImage;
     private boolean aleatoire;
 
-    private PlateauPuzzle plateau;
+    private PlateauPuzzle plateau = new PlateauPuzzle(this,this.difficulte,this.idImage,this.aleatoire);
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -32,6 +31,7 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
         this.difficulte =  i.getIntExtra("DIFFICULTE",1);
         this.idImage = i.getIntExtra("IMAGE",R.drawable.montagnes1);
         this.aleatoire = i.getBooleanExtra("ALEATOIRE",false);
+        //Crée le plateau avec l'image, la difficulté et le placement aleatoire
         plateau = new PlateauPuzzle(this,this.difficulte,this.idImage,this.aleatoire);
         setContentView(plateau);
     }
@@ -90,7 +90,6 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
             // On vérifie aussi que l'opération s'est bien déroulée
             if (resultCode == this.RESULT_CANCELED) {
                 // On affiche le bouton qui a été choisi
-                System.out.println("on a annulé");
                 plateau = new PlateauPuzzle(this,this.difficulte,this.idImage,this.aleatoire);
                 setContentView(plateau);
             }

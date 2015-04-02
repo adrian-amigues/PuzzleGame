@@ -45,7 +45,7 @@ public class IntentProgression extends Activity {
 
         Button btsauvegarde = (Button) findViewById(R.id.buttonMenu);
         btsauvegarde.setOnCreateContextMenuListener(this);
-        //action sur le clique du bouton
+        //action sur le clic du bouton
         btsauvegarde.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(IntentProgression.this, MainActivity.class);
@@ -119,8 +119,6 @@ public class IntentProgression extends Activity {
                 ioe.printStackTrace();
             }
             return false;
-//            e.printStackTrace();
-//            throw new RuntimeException("Crash: openFileInput failed");
         }
         int byteCount = 0;
         int currentByte;
