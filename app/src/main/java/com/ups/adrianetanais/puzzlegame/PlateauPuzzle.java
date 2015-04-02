@@ -7,13 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -84,7 +82,7 @@ public class PlateauPuzzle extends View {
     }
 
     private void resizeImageToFitScreen(int viewWidth, int viewHeight) {
-        viewWidth = viewWidth - BORDER_SIZE; /* BORDER_SIZE * 2 laissait une ligne blance */
+        viewWidth = viewWidth - BORDER_SIZE;
         viewHeight = viewHeight - BORDER_SIZE;
         int imageWidth = puzzleBitmap.getWidth();
         int imageHeight = puzzleBitmap.getHeight();

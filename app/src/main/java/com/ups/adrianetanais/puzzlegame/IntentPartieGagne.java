@@ -12,12 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class IntentPartieGagne extends Activity {
-    //objet qui vas utiliser le service vibrator
     Vibrator vibreur;
     TextView sContenu;
     private MediaPlayer mPlayer = null;
 
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

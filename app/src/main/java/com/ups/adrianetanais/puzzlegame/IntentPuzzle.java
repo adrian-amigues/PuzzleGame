@@ -1,6 +1,5 @@
 package com.ups.adrianetanais.puzzlegame;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
