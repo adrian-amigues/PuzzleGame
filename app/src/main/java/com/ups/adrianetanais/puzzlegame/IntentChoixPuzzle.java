@@ -18,7 +18,7 @@ public class IntentChoixPuzzle extends ActionBarActivity {
         final int difficulte =  i.getIntExtra("DIFFICULTE",1);
         final boolean aleatoire = i.getBooleanExtra("ALEATOIRE",false);
 
-        //On recupere le puzzle selectionne
+        //On recupere le puzzle selectionne, et on envoi la difficulte, l'image et le placement aleatoire ou non.
         ImageButton choixMer = (ImageButton) findViewById(R.id.buttonMer);
         choixMer.setOnClickListener(new View.OnClickListener() {
             @Override
