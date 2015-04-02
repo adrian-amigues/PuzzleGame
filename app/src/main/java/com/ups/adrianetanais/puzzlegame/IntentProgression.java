@@ -14,9 +14,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Created by Anaïs on 23/03/2015.
- */
 public class IntentProgression extends Activity {
 
     public static final String FILENAME = "progression.txt";
@@ -45,7 +42,6 @@ public class IntentProgression extends Activity {
 
         Button progressionButton = (Button) findViewById(R.id.buttonMenu);
         progressionButton.setOnCreateContextMenuListener(this);
-        //action sur le clique du bouton
         progressionButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(IntentProgression.this, MainActivity.class);
@@ -59,7 +55,7 @@ public class IntentProgression extends Activity {
     /**
      * Met à jour la liste des puzzles terminés avec le fichier de sauvegarde de la progression
      * et le dèrnier puzzle terminé.
-     * @param newPuzzleDone
+     * @param newPuzzleDone L'identifiant du puzzle (niveau et difficulté)
      */
     private void updatePuzzlesDone(int newPuzzleDone) {
         FileInputStream fis;
@@ -174,11 +170,11 @@ public class IntentProgression extends Activity {
 
     /**
      * Sélectionne l'ImageView à mettre à jour en fonction du puzzle terminé et de la difficulté.
-     * @param niveauEffectue
+     * @param puzzleEffectue L'identifiant du puzzle (niveau et difficulté)
      */
-    public void ajoutNiveau (int niveauEffectue){
+    public void ajoutNiveau (int puzzleEffectue){
         ImageView image = null;
-        switch (niveauEffectue) {
+        switch (puzzleEffectue) {
             case 1 :
                 image = (ImageView) findViewById (R.id.facileDesert);
                 break;
@@ -214,9 +210,9 @@ public class IntentProgression extends Activity {
     /**
      * Retourne le numéro correspondant à l'image associé à sa difficulté
      * Pour 3 images et 3 difficultés, sera entre 1 et 9
-     * @param idImage
-     * @param niveau
-     * @return
+     * @param idImage le numéro de l'image
+     * @param niveau la difficulte
+     * @return l'identifiant du puzzle (image et difficulté)
      */
      public int numeroTableauProgression (int idImage, int niveau){
          if (idImage == R.drawable.desert)

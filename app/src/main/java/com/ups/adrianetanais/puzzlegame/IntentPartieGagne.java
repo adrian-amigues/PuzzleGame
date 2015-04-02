@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 public class IntentPartieGagne extends Activity {
     Vibrator vibreur;
-    TextView sContenu;
     private MediaPlayer mPlayer = null;
 
     @Override
