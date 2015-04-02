@@ -14,9 +14,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Created by Anaïs on 23/03/2015.
- */
 public class IntentProgression extends Activity {
 
     public static final String FILENAME = "progression.txt";
@@ -25,6 +22,7 @@ public class IntentProgression extends Activity {
     public static final int NORMAL_NUMBER_OF_BYTES = NUMBER_OF_DIFFICULTIES * NUMBER_OF_PUZZLES;
 
     private ArrayList <Integer> puzzlesDone = new ArrayList<>();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,10 +41,10 @@ public class IntentProgression extends Activity {
         for (int image : puzzlesDone)
             ajoutNiveau(image);
 
-        Button btsauvegarde = (Button) findViewById(R.id.buttonMenu);
-        btsauvegarde.setOnCreateContextMenuListener(this);
+        Button progressionButton = (Button) findViewById(R.id.buttonMenu);
+        progressionButton.setOnCreateContextMenuListener(this);
         //action sur le clique du bouton
-        btsauvegarde.setOnClickListener(new Button.OnClickListener() {
+        progressionButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(IntentProgression.this, MainActivity.class);
                 startActivity(i);
@@ -56,6 +54,11 @@ public class IntentProgression extends Activity {
         });
     }
 
+    /**
+     * Met à jour la liste des puzzles terminés avec le fichier de sauvegarde de la progression
+     * et le dèrnier puzzle terminé.
+     * @param newPuzzleDone
+     */
     private void updatePuzzlesDone(int newPuzzleDone) {
         FileInputStream fis;
         try {
@@ -87,6 +90,9 @@ public class IntentProgression extends Activity {
         updatePuzzlesDoneFile();
     }
 
+    /**
+     * Met à jour le fichier de sauvegarde de la progression avec la liste des puzzles terminés.
+     */
     private void updatePuzzlesDoneFile() {
         FileOutputStream fos;
         try {
@@ -104,12 +110,15 @@ public class IntentProgression extends Activity {
         }
     }
 
+    /**
+     * Vérifie que le fichier de progression soit d'un format valide.
+     * @return vrai si le fichier est valide
+     */
     private boolean fileIsValid() {
         FileInputStream fis;
         try {
             fis = openFileInput(FILENAME);
         } catch (FileNotFoundException e) {
-            // On crée le fichier
             FileOutputStream fos;
             System.out.println("Creating progression file !");
             try {
@@ -119,8 +128,6 @@ public class IntentProgression extends Activity {
                 ioe.printStackTrace();
             }
             return false;
-//            e.printStackTrace();
-//            throw new RuntimeException("Crash: openFileInput failed");
         }
         int byteCount = 0;
         int currentByte;
@@ -146,6 +153,9 @@ public class IntentProgression extends Activity {
         return (byteCount == NORMAL_NUMBER_OF_BYTES);
     }
 
+    /**
+     * Recrée le fichier de progression avec tous les puzzles non terminés.
+     */
     private void recreateFile() {
         FileOutputStream fos;
         try {
@@ -159,22 +169,10 @@ public class IntentProgression extends Activity {
         }
     }
 
-    private void printFileContent() {
-        FileInputStream fis;
-        try {
-            fis = openFileInput(FILENAME);
-            int currentByte;
-            System.out.println("**** Printing file content ****");
-            while ((currentByte = fis.read()) != -1) {
-                System.out.print((char) currentByte);
-            }
-            System.out.println("");
-            fis.close();
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * Sélectionne l'ImageView à mettre à jour en fonction du puzzle terminé et de la difficulté.
+     * @param niveauEffectue
+     */
     public void ajoutNiveau (int niveauEffectue){
         ImageView image = null;
         switch (niveauEffectue) {
@@ -209,6 +207,14 @@ public class IntentProgression extends Activity {
         if (image != null)
            image.setImageResource(R.drawable.vrai);
     }
+
+    /**
+     * Retourne le numéro correspondant à l'image associé à sa difficulté
+     * Pour 3 images et 3 difficultés, sera entre 1 et 9
+     * @param idImage
+     * @param niveau
+     * @return
+     */
      public int numeroTableauProgression (int idImage, int niveau){
          if (idImage == R.drawable.desert)
              return niveau;

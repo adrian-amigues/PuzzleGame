@@ -27,8 +27,6 @@ public class PlateauPuzzle extends View {
     private List<ImagePuzzle> imageList = new LinkedList<>();
     private ImagePuzzle imageSelectionnee = null;
 
-    private int mX;
-    private int mY;
     private int decalageX;
     private int decalageY;
     private int piecesToPlace=8;
@@ -162,6 +160,7 @@ public class PlateauPuzzle extends View {
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
+        int mX, mY;
         int action = MotionEventCompat.getActionMasked(event);
         switch (action) {
             case (MotionEvent.ACTION_DOWN):

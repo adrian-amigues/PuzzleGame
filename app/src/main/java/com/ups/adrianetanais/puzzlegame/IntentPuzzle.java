@@ -13,11 +13,9 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
 
     private static final int SHAKE_THRESHOLD = 400;
     private SensorManager sensorManager;
-    private float x, y, z;
     private float lastX, lastY, lastZ;
     private long lastUpdate = -1;
     private long lastShake = -1;
-    private boolean isShaked = false;
     public int CHOOSE_BUTTON_REQUEST = 0;
     private int difficulte;
     private int idImage;
@@ -60,6 +58,7 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+        float x, y, z;
         if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             long curTime = System.currentTimeMillis();
             long diffTime = curTime - lastUpdate;
@@ -72,8 +71,6 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
 
                 float speed = Math.abs(x+y+z - lastX - lastY - lastZ) / diffTime * 1000;
                 if (speed > SHAKE_THRESHOLD && (curTime - lastShake) > 400) {
-                    // On a bien secoué l'écran
-                    isShaked = true;
                     lastShake = System.currentTimeMillis();
                     plateau.toggleShowPuzzleFinished();
                 }
