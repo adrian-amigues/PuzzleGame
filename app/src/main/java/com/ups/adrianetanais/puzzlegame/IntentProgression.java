@@ -14,6 +14,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Created by Anaïs on 23/03/2015.
+ */
 public class IntentProgression extends Activity {
 
     public static final String FILENAME = "progression.txt";
@@ -22,7 +25,6 @@ public class IntentProgression extends Activity {
     public static final int NORMAL_NUMBER_OF_BYTES = NUMBER_OF_DIFFICULTIES * NUMBER_OF_PUZZLES;
 
     private ArrayList <Integer> puzzlesDone = new ArrayList<>();
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,6 +121,7 @@ public class IntentProgression extends Activity {
         try {
             fis = openFileInput(FILENAME);
         } catch (FileNotFoundException e) {
+            // On crée le fichier
             FileOutputStream fos;
             System.out.println("Creating progression file !");
             try {

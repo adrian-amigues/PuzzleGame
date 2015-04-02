@@ -47,6 +47,8 @@ public class IntentPartieGagne extends Activity {
             }
         });
     }
+
+
     private void playSound(int resId) {
         if(mPlayer != null) {
             mPlayer.stop();

@@ -20,7 +20,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxAleatoire);
-        System.out.println("Boolean main" + aleatoire);
 
         Button choixFacile = (Button) findViewById(R.id.facile);
         choixFacile.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(secondeActivite);
             }
         });
-
+        //Retour a l'acceuil Android
         Button buttunExit = (Button)findViewById(R.id.buttonQuitter);
         buttunExit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-
+        //Affichage de la progression
         Button buttunProgression = (Button) findViewById(R.id.buttonProgression);
         buttunProgression.setOnClickListener (new View.OnClickListener() {
             @Override
