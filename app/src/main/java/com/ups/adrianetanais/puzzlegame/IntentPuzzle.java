@@ -19,8 +19,7 @@ public class IntentPuzzle extends ActionBarActivity implements SensorEventListen
     private int difficulte;
     private int idImage;
     private boolean aleatoire;
-
-    private PlateauPuzzle plateau = new PlateauPuzzle(this,this.difficulte,this.idImage,this.aleatoire);
+    private PlateauPuzzle plateau;
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
